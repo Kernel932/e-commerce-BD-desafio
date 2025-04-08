@@ -1,0 +1,291 @@
+-- Persistindo dados no Banco de Dados para cenário de e-commerce versão Kern Galvão
+
+-- USE ecommerce;
+-- show tables;
+-- desc Pagamento;
+-- 
+-- SELECT * FROM Pagamento;
+
+-- Persistindo dados na tabela Cliente
+-- idCliente, Nome, Sobrenome, Sexo, CCPF, Rua, Cidade, num, Bairro
+
+insert into Cliente (Nome, Sobrenome, Sexo, CCPF, Rua, Cidade, num, Bairro)
+			values ('Kern',	'Galvão',	'M',	'78854697256',	'AV Juaçuba',	'Cafundo',	'22',	'Beira Rio'),
+				   ('Adão',	'Rocha' ,'M'   ,'25697418566',	'Rua da Lama','Nova Cidade','35','Beira Corrego'),
+                   ('Eva','Silva','F','21569780141',	'Rua Colatina',	'Belo Horizonte','87','Beira Pista'),
+                   ('Maria','José Trindade','F','10254008916','Rua Veneza','Rio de Janeiro','2','Mambo'),
+                   ('Zione','Pessim','F','23633178942','Prç Sete','Ortolândia','1003',	'Veadeiro'),
+                   ('Nelci','Bening','F','48700300647','Rua Marinho','Veneza','596','Galinheiro'),
+                   ('Flávio','Salomão Reis','M','89115780067','Av Guanabara','Capitella','24','Bezerreiro'),
+                   ('Pedro','Para Pedro','M','55668899142','BR 262','Ubuzeiro','357','Zuado'),
+                   ('Juliana','Mascarenhas','F','33697815422','Corrego Sete','São Domingos','9','Sapo Cururu');
+                   
+                   
+ -- Persistindo dados na tabela Produto
+-- idProduto, Pnome, Categoria, Unidade, Nota, Qembalagem 
+
+insert into Produto (Pnome, Categoria, Unidade, Nota, Qembalagem) 
+			values('Lixadeira Profissional 21W','Ferramentas',	'Und',	'1','1'),
+				  ('Boneca Chorona','Brinquedos','Und',	'2','1'),
+                  ('Kit Camisa Basica ','Vestuário','Und','5','4'),
+                  ('Liquidificador Walita 2L',	'Eletrônico','Und','3','1'),
+                  ('Relógio Masculino','Vestuário','Und','3','1'),
+                  ('Vestido Femino Vermelho','Vestuário','Und','0','1'),
+                  ('TV Tela Plana Android 21 pol','Eletrônico','Und','1','1'),
+                  ('Tesoura Eletrica Corta Tudo','Eletrônico','Und','2','1'),
+                  ('Celular Motorola E25S Preto','Eletrônico','Und','3','1'),
+                  ('Celular Motorola E25S Rosa','Eletrônico','Und','4','1'),
+                  ('Chave Catraca boca n 12','Ferramentas','Und','3','1'),
+                  ('Rádio AM FM 200w pmpo 127v','Eletrônico','Und','1','1'),
+                  ('Mop Esfregão 3 panos','Casa','Und','2','1'),
+                  ('Aspirador água e poeira 20w','Casa',	'Und','4','1'),
+                  ('Leite Pasteurizado VACA Louca',	'Alimetos',	'LT','3','1'),
+                  ('Perfume Encatador Masculino','Beleza','Und','5','1');
+                  
+                  
+ -- Persistindo dados na tabela Pagamento (Cadastro de Pagamento)
+-- idPagamento, Pgnome
+
+insert into Pagamento (Pgnome)
+			values('Cartão1'),
+				  ('Cartão2'),
+                  ('Pix'),
+                  ('Boleto');
+                  
+ -- Persistindo dados na tabela CodRST (Código de Rastreio)
+-- idCodRST, Rastreio
+
+insert into CodRST (Rastreio)
+			values('AC3156648894'),
+				  ('AC3156648895'),
+					('AC3156648896'),
+					('AC3156648897'),
+					('AC3156648898'),
+					('AC3156648899'),
+					('AC3156648900'),
+					('AC3156648901'),
+					('AC3156648902'),
+					('AC3156648903'),
+					('AC3156648904'),
+					('AC3156648905'),
+					('AC3156648906'),
+					('AC3156648907'),
+					('AC3156648908'),
+					('AC3156648909'),
+					('AC3156648910'),
+					('AC3156648911'),
+					('AC3156648912'),
+					('AC3156648913'),
+					('AC3156648914'),
+					('AC3156648915'),
+					('AC3156648916'),
+					('AC3156648917'),
+					('AC3156648918');
+                  
+                  
+
+ -- Persistindo dados na tabela Estoque 
+-- idEstoque, Estqnome, UnidadeEstq, EstqLocal, QembalagemEstq, Estquantidade
+
+insert into Estoque (Estqnome, UnidadeEstq, EstqLocal, QembalagemEstq, Estquantidade) 
+			values('Deposito SP',	'Und',	'SP',	'1',	'301'),
+					('GALPÃO2',	'Und',	'SP',	'1',	'222'),
+					('GALPÃO1',	'Und',	'SP',	'4',	'133'),
+					('Deposito SP',	'Und',	'SP',	'1',	'55'),
+					('Logistica BR',	'Und',	'SP',	'1',	'25'),
+					('Atacado SP',	'Und',	'SP',	'1',	'5'),
+					('Galpão03',	'Und',	'SP',	'1',	'300'),
+					('Deposito SP',	'Und',	'SP',	'1',	'133'),
+					('Galpão02',	'Und',	'RJ',	'1',	'222'),
+					('Galpão01',	'Und',	'RJ',	'1',	'115'),
+					('Galpão00',	'Und',	'RJ',	'1',	'785'),
+					('Galpão01',	'Und',	'RJ',	'1',	'321'),
+					('Galpão02',	'Und',	'RJ',	'1',	'15'),
+					('Galpão03',	'Und',	'MG',	'1',	'196'),
+					('Galpão04',	'Kg',	'MG',	'2',	'178'),
+					('Galpão05',	'LT',	'MG',	'1',	'268'),
+					('Galpão06',	'Und',	'ES',	'1',	'65');
+ 
+                  
+                  
+ -- Persistindo dados na tabela Fornecedor 
+-- idFornecedor, Razão, FCNPJ, Contato, email, Rua, Cidade, num, Bairro                  
+
+insert into Fornecedor (Razão, FCNPJ, Contato, email, Rua, Cidade, num, Bairro) 
+			values('Distr. Silva & Galvão',	'325875621000108','45998765522','zégeraldo@meuemei.com','AV Juaçuba','Barueri',	'22','Bairro'),
+				  ('Store Modas','450015621000144',	'12998765423','temdo@meuemei.com','Rua da Lama','Nova Cidade','35','Beira Rio'),
+                  ('Cafonas Surf Wear','322475621000101','64998765466','sorte@meuemei.com','Rua Colatina',	'Belo Horizonte','87','Beira Corrego'),
+                  ('Eletros da China','963875621000106','47998765625','manhe@meuemei.com','Rua Veneza','Rio de Janeiro','2','Beira Pista'),
+                  ('Distr. De Alimentos Cricaré','201875621000101',	'27998764455','umdos dois@meuemei.com','Prç Sete','Manaus','1003','Mambo'),
+                  ('Lá Garantia ','159875621000122','31998765498','distribuidora@meuemei.com','Rua Marinho','Paris Chique',	'596','Veadeiro'),
+                  ('Eletrônicos da Hora','800875621000114',	'31998765302','lagalantia@meuemei.com','Av Guanabara','São Gabriel','24','Galinheiro'),
+                  ('Distr. Beltrano e Fulano','159275621000101','60998765423','soidio@meuemei.com','BR 262','Vila Cafona','357','Bezerreiro'),
+                  ('Atacado São Paulo',	'620075621000103','88998765478','manodoceu@meuemei.com','Corrego Sete',	'São Domingos',	'9','Zuado');
+                  
+                  
+-- Persistindo dados na tabela Vendedor 
+-- idVendedor, Razão, Fantasia, VCNPJ, VCPF, Contato, email, Rua, Cidade, num, Bairro                  
+
+insert into Vendedor (Razão, Fantasia, VCNPJ, VCPF, Contato, email, Rua, Cidade, num, Bairro) 
+			values('Distr. Silva & Galvão','Silva & Galvão','325875621000108',null,'45998765522','zégeraldo@meuemei.com',	'AV Juaçuba','Barueri','44','Beira Rio'),
+                  ('Banca da Jurema','Jurema Fashion Weak','250015021000144',null,'12998765423','temdo@meuemei.com','Rua da Lama','Nova Cidade','66','Beira Corrego'),
+                  ('Basic Wear','Moda Modas','322475621000111',	null,'64998765466','sorte@meuemei.com','Rua Colatina','Belo Horizonte','666','Beira Pista'),
+                  ('Eletros da 25',	'Eletrozão','883872281000106',null,'47998765625','manhe@meuemei.com','Rua Veneza','Rio de Janeiro','879','Mambo'),
+                  ('Um Atacadão','Super Atacadão','671895621000101',null,'27998764455','umdos dois@meuemei.com','Prç Sete',	'Manaus','201',	'Veadeiro'),
+                  ('Atilio Hofmam','Atilio Hofmam',null,'78825497236','31998765422','distribuidora@meuemei.com','Rua Marinho','Paris Chique','400','Galinheiro'),
+                  ('Heitor Kloze','Heitor Kloze',null,'25698208535','31998765322','lagalantia@meuemei.com','Av Guanabara','São Gabriel','36','Bezerreiro'),
+                  ('Lendro Cunha','Lendro Cunha',null,'21570080124','60998765455','soidio@meuemei.com','BR 262','Vila Cafona','357','Zuado'),
+                  ('Nelci Bening','Nelci Bening',null,'48700300647','88998765444','manodoceu@meuemei.com','Corrego Sete',	'Veneza','25','Sapo Cururu');
+                  
+-- Persistindo dados na tabela Pedidos 
+-- idPedidos, idPxCliente, idPxPagamento, StatusPed, Obs, ValorFrete            
+
+insert into Pedidos (idPxCliente, idPxPagamento, idPxRastreio, StatusPed, Obs, ValorFrete) 
+			values  ('1','1','1',	'Finalizado',	'Pedido via app',	'22'),
+					('3','1','2',	'Processando',	'Pedido via Web',	'35'),
+					('4','2','3',	'Finalizado',	'Pedido via Web',	'40'),
+					('8','3','4',	'Trânsito',	'Pedido via Web',	'66'),
+					('9','4','5',	'Finalizado',	'Pedido via Web',	'22'),
+					('2','1','6',	'Finalizado',	'Pedido via app',	'10.7'),
+					('6','1','7',	'Trânsito',	'Pedido via Web',	'15'),
+					('7','3','8',	'Cancelado',	'Entrega Expressa',	'8.35'),
+					('5','3','9',	'Finalizado',	'Pedido via Web',	'12.25'),
+					('2','3','10',	'Processando',	'Pedido via app',	'32'),
+					('3','2','11',	'Finalizado',	'Entrega Expressa',	'12'),
+					('5','4','12',	'Finalizado',	'Pedido via app',	'22.15'),
+					('5','2','13',	'Trânsito',	'Entrega Expressa',	'10.6'),
+					('9','1','14',	'Processando',	'Pedido via Web',	'10.8'),
+					('8','3','15',	'Finalizado',	'Pedido via Web',	'11'),
+					('6','3','16',	'Finalizado',	'Entrega Expressa',	'15.3'),
+					('1','3','17',	'Trânsito',	'Pedido via app',	'16'),
+					('4','3','18',	'Processando',	'Entrega Expressa',	'12'),
+					('2','1','19',	'Cancelado',	'Pedido via Web',	'14'),
+					('4','3','20',	'Finalizado',	'Pedido via Web',	'22'),
+					('6','3','21',	'Processando',	'Pedido via app',	'35'),
+					('8','1','22',	'Finalizado',	'Pedido via Web',	'8.5'),
+					('3','1','23',	'Trânsito',	'Pedido via app',	'12.75'),
+					('2','3','24',	'Processando',	'Pedido via Web',	'10.3'),
+					('1','4','25',	'Cancelado',	'Entrega Expressa',	'11');
+                    
+                    
+-- Persistindo dados na tabela ProdxVend 
+-- idProdxVend_vend, idProdxVend_prod, Quantidade
+
+insert into ProdxVend (idProdxVend_vend, idProdxVend_prod, Quantidade) 
+			values  ('1',	'1',	'10'),
+					('2',	'2',	'5'),
+					('3',	'3',	'6'),
+					('4',	'4',	'45'),
+					('5',	'5',	'87'),
+					('6',	'6',	'10'),
+					('7',	'7',	'6'),
+					('8',	'8',	'3'),
+					('9',	'9',	'22'),
+					('1',	'10',	'15'),
+					('2',	'11',	'6'),
+					('3',	'12',	'45'),
+					('4',	'13',	'87'),
+					('5',	'14',	'10'),
+					('6',	'15',	'6'),
+					('7',	'16',	'3'),
+					('8',	'10',	'45'),
+					('9',	'5',	'87'),
+					('7',	'6',	'10'),
+					('8',	'7',	'6'),
+					('9',	'8',	'3'),
+					('1',	'9',	'22'),
+					('2',	'10',	'15'),
+					('3',	'11',	'6'),
+					('4',	'12',	'45'),
+					('5',	'13',	'87'),
+					('6',	'14',	'14'),
+					('7',	'15',	'56'),
+					('8',	'11',	'87'),
+					('9',	'12',	'95'),
+					('1',	'13',	'22'),
+					('2',	'14',	'20'),
+					('3',	'15',	'45'),
+					('4',	'16',	'36'),
+					('5',	'10',	'18'),
+					('6',	'5',	'10');
+                    
+-- Persistindo dados na tabela ProdxForn 
+-- idProdxForn_forn, idProdxForn_prod, Quantidade
+
+insert into ProdxForn (idProdxForn_forn, idProdxForn_prod, Quantidade) 
+			values  ('1',	'1',	'20'),
+					('2',	'2',	'25'),
+					('3',	'3',	'60'),
+					('4',	'5',	'45'),
+					('5',	'6',	'80'),
+					('6',	'7',	'35'),
+					('7',	'8',	'29'),
+					('8',	'9',	'47'),
+					('9',	'10',	'18'),
+					('5',	'11',	'15'),
+					('6',	'12',	'48'),
+					('3',	'16',	'90'),
+					('4',	'15',	'100'),
+					('2',	'14',	'200'),
+					('8',	'13',	'122'),
+					('9',	'5',	'135'),
+					('4',	'6',	'67'),
+					('5',	'7',	'89'),
+					('5',	'8',	'10'),
+					('6',	'9',	'15'),
+					('3',	'10',	'18');
+                    
+-- Persistindo dados na tabela ProdxPed 
+-- idProdxPed_ped, idProdxPed_prod, ProQuant, ProStatus
+
+insert into ProdxPed (idProdxPed_ped, idProdxPed_prod, ProQuant, ProStatus) 
+			values ('1',	'1',	'1',	'Disponivél'),
+					('2',	'2',	'2',	'Disponivél'),
+					('3',	'3',	'3',	'Indisponivél'),
+					('4',	'4',	'1',	'Disponivél'),
+					('5',	'5',	'2',	'Disponivél'),
+					('6',	'6',	'1',	'Indisponivél'),
+					('7',	'7',	'3',	'Disponivél'),
+					('8',	'8',	'2',	'Disponivél'),
+					('9',	'9',	'4',	'Indisponivél'),
+					('10',	'10',	'1',	'Indisponivél'),
+					('11',	'11',	'2',	'Disponivél'),
+					('12',	'12',	'3',	'Indisponivél'),
+					('13',	'13',	'4',	'Disponivél'),
+					('14',	'14',	'2',	'Disponivél'),
+					('15',	'15',	'2',	'Indisponivél'),
+					('16',	'16',	'2',	'Disponivél'),
+					('17',	'5',	'2',	'Indisponivél'),
+					('18',	'6',	'3',	'Indisponivél'),
+					('19',	'7',	'3',	'Disponivél'),
+					('20',	'8',	'1',	'Indisponivél'),
+					('21',	'9',	'2',	'Disponivél'),
+					('22',	'10',	'3',	'Disponivél'),
+					('23',	'11',	'4',	'Disponivél'),
+					('24',	'12',	'5',	'Indisponivél'),
+					('25',	'13',	'2',	'Disponivél');
+                    
+-- Persistindo dados na tabela ProdxEst 
+-- idProdxEst_est, idProdxEst_prod, PELocal
+
+insert into ProdxEst (idProdxEst_est, idProdxEst_prod, PELocal) 
+			values ('1',	'1',	'Unidade Própria'),
+					('2',	'2',	'Unidade Própria'),
+					('3',	'3',	'Galpão Tereceiros'),
+					('4',	'4',	'Galpão Tereceiros'),
+					('5',	'5',	'Unidade Própria'),
+					('6',	'6',	'Unidade Própria'),
+					('7',	'7',	'Galpão Tereceiros'),
+					('8',	'8',	'Galpão Tereceiros'),
+					('9',	'9',	'Unidade Própria'),
+					('10',	'10',	'Galpão Tereceiros'),
+					('11',	'11',	'Unidade Própria'),
+					('12',	'12',	'Galpão Tereceiros'),
+					('13',	'13',	'Unidade Própria'),
+					('14',	'14',	'Galpão Tereceiros'),
+					('15',	'15',	'Unidade Própria'),
+					('16',	'16',	'Galpão Tereceiros'),
+					('17',	'1',	'Unidade Própria'),
+					('2',	'10',	'Galpão Tereceiros'),
+					('3',	'10',	'Unidade Própria'),
+					('5',	'7',	'Galpão Tereceiros');
