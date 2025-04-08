@@ -1,4 +1,4 @@
--- Criação de Banco de Dados para cenário de e-commerce versão Kern Galvão
+-- Criação de Banco de Dados para cenário de e-commerce versão Kern Galvão - ARQUIVO 01
 -- DROP DATABASE ecommerce;
 -- DROP TABLE Estoque;
 -- CREATE DATABASE ecommerce;
