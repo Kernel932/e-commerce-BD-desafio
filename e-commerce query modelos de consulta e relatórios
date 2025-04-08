@@ -1,0 +1,87 @@
+-- Criando Consultas e Relatórios apartir dos dados para cenário de e-commerce versão Kern Galvão
+
+
+-- Consulta 01 Quais São meus Clientes e onde Moram?
+
+select concat(Nome,' ',Sobrenome) as Nome_Completo, Cidade from Cliente; 
+
+
+-- Consulta 02 Quantos Produtos eu Vendi e a sua respectiva Quantidade?
+                
+select idProdxPed_prod AS Código_do_Produto, Pnome AS Nome_do_Produto, SUM(ProQuant) AS Total_Vendido from  ProdxPed p, Produto q
+		where p.idProdxPed_prod = q.idProduto
+		group by idProdxPed_prod, Pnome
+        order by idProdxPed_prod;
+        
+-- Consulta 03 Quais os 04 Produto mais vendido? 
+
+select idProdxPed_prod AS Código_do_Produto, Pnome AS Nome_do_Produto, SUM(ProQuant) AS Total_Vendido from  ProdxPed p, Produto q
+		where p.idProdxPed_prod = q.idProduto
+		group by idProdxPed_prod, Pnome
+        order by Total_Vendido desc
+        limit 4;
+        
+-- Consulta 04 Que são os melhores compradores do meu cadastro de Clientes?
+
+select concat(Nome,' ',Sobrenome) AS Nome_do_Cliente, SUM(ProQuant) AS Total_Vendido  from  ProdxPed p, Produto q, Cliente c, Pedidos s
+		where idPedidos = idProdxPed_ped and idPxCliente = idCliente and idProdxPed_prod = idProduto
+		group by Nome_do_Cliente
+        order by Total_Vendido desc;
+       
+       
+-- Consulta 05 Quais clientes precisam de Cupom de desconto para comprar mais?
+
+       
+select concat(Nome,' ',Sobrenome) AS Precisa_de_Cupom, SUM(ProQuant)  AS Unidades_Vendidas, count(idPxCliente) AS Total_de_Pedidos from  ProdxPed p, Produto q, Cliente c, Pedidos s
+		where  idPedidos = idProdxPed_ped and idPxCliente = idCliente and idProdxPed_prod = idProduto
+		group by Precisa_de_Cupom
+        having  SUM(ProQuant) < 3
+        order by Unidades_Vendidas asc;	
+        
+-- Consulta 06 Quantos pedidos foram feitos por cada cliente? 
+
+select concat(Nome,' ',Sobrenome) AS Nome_do_Cliente, count(idPxCliente) AS Total_de_Pedidos from  Cliente c, Pedidos s
+		where idPxCliente = idCliente
+		group by Nome_do_Cliente
+        order by Total_de_Pedidos desc;
+        
+-- Consulta 07 Algum Cliente  também é Vendedor?
+
+select idCliente AS Cod_Cliente, concat(Nome,' ',Sobrenome) AS Estes_Clientes_Vendem_na_Plataforma, CCPF AS CPF   from  Cliente c,  Vendedor p
+		where CCPF = VCPF;
+
+-- Consulta 08 - Algum vendedor também é fornecedor?
+
+select idFornecedor AS Cod_Fornecedor, f.Razão AS Estes_Fornecedor_Vende_na_Plataforma, FCNPJ AS CNPJ   from  Fornecedor f,  Vendedor v
+		where FCNPJ = VCNPJ;
+
+-- Consulta 09 - Qual a Relação de produtos fornecedores e estoques?
+
+select  Pnome AS Produto, Razão AS Razão_Fornecedor, Quantidade AS Nosso_Estoque from ProdxForn q, Fornecedor f, Produto p
+				where f.idFornecedor = q.idProdxForn_forn and p.idProduto = q.idProdxForn_prod
+                order by Razão_Fornecedor;
+                
+-- Consulta 10 - Relação de nomes dos fornecedores e nomes dos produtos;                
+
+select  Razão AS Esse_Fornecedor, Pnome AS Fornece_o_Seguinte_Produto from ProdxForn q, Fornecedor f, Produto p
+				where f.idFornecedor = q.idProdxForn_forn and p.idProduto = q.idProdxForn_prod
+                order by Fornece_o_Seguinte_Produto;
+                
+-- Consulta 11 - Pedidos por Forma de Pagamento Preferêncial.
+
+select Pgnome AS Forma_de_Pagamento, count(idPxPagamento) AS Quantidade_de_Pedidos from Pagamento, Pedidos
+		where idPagamento = idPxPagamento
+        group by idPagamento
+        order by Quantidade_de_Pedidos desc;
+        
+-- Consulta 11 - Entrega – Possui status e código de rastreio.
+
+select concat(Nome,' ',Sobrenome) AS Nome_do_Cliente, idPedidos AS Pedido, Rastreio AS Cod_Rastreio, StatusPed from CodRST c, Pedidos p, Cliente q
+				where p.idPxRastreio = c.idCodRST and q.idCliente = p.idPxCliente
+                Having StatusPed = 'Finalizado' or StatusPed = 'Trânsito';
+                
+-- Consulta 11 - Entrega – Pedidos Cancelados e em Processamento.  
+
+select concat(Nome,' ',Sobrenome) AS Nome_do_Cliente, idPedidos AS Pedido, StatusPed from CodRST c, Pedidos p, Cliente q
+				where p.idPxRastreio = c.idCodRST and q.idCliente = p.idPxCliente
+                Having StatusPed = 'Cancelado' or StatusPed = 'Processando';  
