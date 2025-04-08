@@ -1,0 +1,178 @@
+-- Criação de Banco de Dados para cenário de e-commerce versão Kern Galvão
+-- DROP DATABASE ecommerce;
+-- DROP TABLE Estoque;
+-- CREATE DATABASE ecommerce;
+-- USE ecommerce;
+
+-- Criando Tabela de Clientes
+
+CREATE TABLE Cliente(
+		idCliente int auto_increment primary key,
+        Nome varchar(10) not null,
+        Sobrenome varchar(20) not null,
+        Sexo enum('M','F','LGBT') not null,
+        CCPF char(11) not null,
+        Rua varchar(20) not null,
+        Cidade varchar(35) not null,
+        num int,
+        Bairro varchar(35),
+        Constraint unique_cpf unique (CCPF)
+);
+
+alter table Cliente auto_increment=1;
+
+-- Criando Tabela Produto
+
+CREATE TABLE Produto(
+		idProduto int auto_increment primary key,
+        Pnome varchar(60) not null,
+        Categoria enum('Casa','Ferramentas','Eletrônico','Vestuário','Beleza','Brinquedos','Alimetos') not null,
+        Unidade enum('LT','Kg','Und') not null,
+        Nota float default 0,
+        Qembalagem varchar(100) not null,
+        constraint unique_Nome unique (Pnome)
+);
+
+alter table Produto auto_increment=1;
+
+-- Criando Tabela Formas de Pagamento 
+
+CREATE TABLE Pagamento(
+		idPagamento int auto_increment primary key,
+        Pgnome enum('Cartão1','Cartão2','PIX','Boleto') not null
+);
+
+alter table Pagamento auto_increment=1;
+
+-- Criando Tabela de Rastreio
+
+CREATE TABLE CodRST(
+		idCodRST int auto_increment primary key,
+        Rastreio char(12) not null,
+        Constraint unique_RST unique (Rastreio)
+);
+
+alter table CodRST auto_increment=1;
+
+
+-- Criando Tabela Pedidos
+
+CREATE TABLE Pedidos(
+		idPedidos int auto_increment primary key,
+        idPxCliente int,
+        idPxPagamento int,
+        idPxRastreio int,
+		StatusPed enum('Cancelado','Processando','Finalizado','Trânsito') default 'Processando',
+        Obs varchar(150),
+        ValorFrete float default 0,
+        constraint ck_pedido_cliente foreign key (idPxCliente) references Cliente(idCliente),
+        constraint ck_pedido_pg foreign key (idPxPagamento) references Pagamento(idPagamento),
+        constraint ck_pedido_rst foreign key (idPxRastreio) references CodRST(idCodRST)
+);
+
+alter table Pedidos auto_increment=1;
+
+
+-- Criando Tabela Estoque
+
+CREATE TABLE Estoque(
+		idEstoque int auto_increment primary key,
+        Estqnome varchar(60) not null,
+        UnidadeEstq enum('LT','Kg','Und') not null,
+        EstqLocal varchar(60) not null,
+        QembalagemEstq varchar(100) not null,
+        Estquantidade int
+        
+);
+
+alter table Estoque auto_increment=1;
+
+-- Criando Tabela Fornecedor
+
+CREATE TABLE Fornecedor(
+		idFornecedor int auto_increment primary key,
+        Razão varchar(50) not null,
+        FCNPJ char(15) not null,
+        Contato char(11) not null,
+        email varchar(40) not null,
+        Rua varchar(60) not null,
+        Cidade varchar(40) not null,
+        num int,
+        Bairro varchar(35),
+        Constraint unique_cnpj unique (FCNPJ)
+);
+
+alter table Fornecedor auto_increment=1;
+
+
+-- Criando Tabela Vendedor
+
+CREATE TABLE Vendedor(
+		idVendedor int auto_increment primary key,
+        Razão varchar(50) not null,
+        Fantasia varchar(50) not null,
+        VCNPJ char(15),
+        VCPF char(11),
+        Contato char(11) not null,
+        email varchar(40) not null,
+        Rua varchar(60) not null,
+        Cidade varchar(40) not null,
+        num int,
+        Bairro varchar(40),
+        Constraint unique_vend_cnpj unique (VCNPJ),
+        Constraint unique_vend_cpf unique (VCPF)
+);
+
+alter table Vendedor auto_increment=1;
+
+
+-- Criando Tabela de Relacionamento NXM Produto x Vendedor
+
+CREATE TABLE ProdxVend(
+		idProdxVend_vend int,
+		idProdxVend_prod int,
+        Quantidade int default 1,
+        primary key (idProdxVend_vend, idProdxVend_prod),
+        constraint fk_prodxvend_vend foreign key (idProdxVend_vend) references Vendedor(idVendedor),
+        constraint fk_prodxvend_prod foreign key (idProdxVend_prod) references Produto(idProduto)
+);
+
+
+-- Criando Tabela de Relacionamento NXM Produto x Fornecedor
+
+CREATE TABLE ProdxForn(
+		idProdxForn_forn int,
+		idProdxForn_prod int,
+        Quantidade int default 1,
+        primary key (idProdxForn_forn, idProdxForn_prod),
+        constraint fk_prodxforn_forn foreign key (idProdxForn_forn) references Fornecedor(idFornecedor),
+        constraint fk_prodxforn_prod foreign key (idProdxForn_prod) references Produto(idProduto)
+);
+
+
+-- Criando Tabela de Relacionamento NXM Produto x Pedido
+
+CREATE TABLE ProdxPed(
+		idProdxPed_ped int,
+		idProdxPed_prod int,
+        ProQuant int default 1,
+        ProStatus enum('Disponivél','Indisponivél') default 'Disponivél',
+        primary key (idProdxPed_prod, idProdxPed_ped),
+        constraint fk_prodxped_ped foreign key (idProdxPed_ped) references Pedidos(idPedidos),
+        constraint fk_prodxped_prod foreign key (idProdxPed_prod) references Produto(idProduto)
+);
+
+
+-- Criando Tabela de Relacionamento NXM Produto x Estoque
+
+CREATE TABLE ProdxEst(
+		idProdxEst_est int,
+		idProdxEst_prod int,
+        PELocal varchar(30),
+        primary key (idProdxEst_prod, idProdxEst_est),
+        constraint fk_prodxEst_est foreign key (idProdxEst_est) references Estoque(idEstoque),
+        constraint fk_prodxEstn_prod foreign key (idProdxEst_prod) references Produto(idProduto)
+);
+
+
+SHOW TABLES;
